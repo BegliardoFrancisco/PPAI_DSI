@@ -176,7 +176,13 @@ namespace PPAI2023.Controlador
             obtenerFechaHoraActual();
             calcularDuracionLlamada(fechaHora);
 
+
+
             llamadaActual.FinalizarLlamada(fechaHora);
+
+            //Actualiza llamada datos 
+            Llamadas.Update(llamadaActual);
+
             //buscarEstadoFinalizada();
             //cambiarLlamadaAFinalizada();
         }

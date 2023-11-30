@@ -43,3 +43,5 @@ C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\obj\Debug\PPAI2023.csproj.C
 C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\obj\Debug\PPAI2023.csproj.CopyComplete
 C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\obj\Debug\PPAI2023.exe
 C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\obj\Debug\PPAI2023.pdb
+C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\bin\Debug\EntityFramework.dll
+C:\Users\panch\OneDrive\Escritorio\PPAI2023\PPAI2023\bin\Debug\EntityFramework.xml

@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PPAI_DSIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Acciones">
+    <Key>
+      <PropertyRef Name="id_accion" />
+    </Key>
+    <Property Name="id_accion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CambiosEstado">
+    <Key>
+      <PropertyRef Name="id_cambio_estado" />
+    </Key>
+    <Property Name="id_cambio_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_estado" Type="int" Nullable="false" />
+    <Property Name="fecha_inicio" Type="date" Nullable="false" />
+    <Property Name="fecha_fin" Type="date" />
+    <Property Name="id_llamada" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="id_categoria" />
+    </Key>
+    <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nro_orden" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dni" Type="int" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="nro_celular" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Estados">
+    <Key>
+      <PropertyRef Name="id_estado" />
+    </Key>
+    <Property Name="id_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_estado" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Llamadas">
+    <Key>
+      <PropertyRef Name="id_llamada" />
+    </Key>
+    <Property Name="id_llamada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_hora_inicio" Type="date" Nullable="false" />
+    <Property Name="descripcion_operador" Type="varchar" MaxLength="100" />
+    <Property Name="detalle_accion_requerida" Type="varchar" MaxLength="50" />
+    <Property Name="duracion" Type="int" />
+    <Property Name="id_accion" Type="int" />
+    <Property Name="id_cliente" Type="int" />
+    <Property Name="id_subopcion" Type="int" />
+    <Property Name="id_opcion_llamada" Type="int" />
+  </EntityType>
+  <EntityType Name="OpcionesLlamada">
+    <Key>
+      <PropertyRef Name="id_opcion_llamada" />
+    </Key>
+    <Property Name="id_opcion_llamada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nro_orden" Type="int" Nullable="false" />
+    <Property Name="id_categoria" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OpcionesValidaciones">
+    <Key>
+      <PropertyRef Name="id_opcion_validacion" />
+    </Key>
+    <Property Name="id_opcion_validacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_validacion" Type="int" Nullable="false" />
+    <Property Name="es_correcta" Type="bit" Nullable="false" />
+    <Property Name="nombre" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="SubOpcionesLlamada">
+    <Key>
+      <PropertyRef Name="id_subopcion" />
+    </Key>
+    <Property Name="id_subopcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nro_orden" Type="int" Nullable="false" />
+    <Property Name="id_opcion_llamada" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Validaciones">
+    <Key>
+      <PropertyRef Name="id_validacion" />
+    </Key>
+    <Property Name="id_validacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nro_orden" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="mensaje_validacion" Type="varchar" MaxLength="50" />
+    <Property Name="id_opcion_llamada" Type="int" Nullable="false" />
+    <Property Name="id_subopcion" Type="int" />
+  </EntityType>
+  <Association Name="FK_ACCION_LLAMADA">
+    <End Role="Acciones" Type="Self.Acciones" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acciones">
+        <PropertyRef Name="id_accion" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_accion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATEGORIA">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="OpcionesLlamada">
+        <PropertyRef Name="id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="CambiosEstado" Type="Self.CambiosEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="id_estado" />
+      </Principal>
+      <Dependent Role="CambiosEstado">
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_CLIENTE">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LLAMADA">
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="1" />
+    <End Role="CambiosEstado" Type="Self.CambiosEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Llamadas">
+        <PropertyRef Name="id_llamada" />
+      </Principal>
+      <Dependent Role="CambiosEstado">
+        <PropertyRef Name="id_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCION_LLAMADA">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="1" />
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCION_LLAMADA_VALIDACIONES">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="1" />
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="Validaciones">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCIONLLAMADA_LLAMADA">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SUBOPCION">
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_subopcion" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_subopcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VALIDACION">
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="1" />
+    <End Role="OpcionesValidaciones" Type="Self.OpcionesValidaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Validaciones">
+        <PropertyRef Name="id_validacion" />
+      </Principal>
+      <Dependent Role="OpcionesValidaciones">
+        <PropertyRef Name="id_validacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_validaciones_subopcion">
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_subopcion" />
+      </Principal>
+      <Dependent Role="Validaciones">
+        <PropertyRef Name="id_subopcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PPAI_DSIModelStoreContainer">
+    <EntitySet Name="Acciones" EntityType="Self.Acciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CambiosEstado" EntityType="Self.CambiosEstado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Llamadas" EntityType="Self.Llamadas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OpcionesLlamada" EntityType="Self.OpcionesLlamada" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OpcionesValidaciones" EntityType="Self.OpcionesValidaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubOpcionesLlamada" EntityType="Self.SubOpcionesLlamada" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Validaciones" EntityType="Self.Validaciones" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ACCION_LLAMADA" Association="Self.FK_ACCION_LLAMADA">
+      <End Role="Acciones" EntitySet="Acciones" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATEGORIA" Association="Self.FK_CATEGORIA">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO" Association="Self.FK_ESTADO">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="CambiosEstado" EntitySet="CambiosEstado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_CLIENTE" Association="Self.FK_ID_CLIENTE">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LLAMADA" Association="Self.FK_LLAMADA">
+      <End Role="Llamadas" EntitySet="Llamadas" />
+      <End Role="CambiosEstado" EntitySet="CambiosEstado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCION_LLAMADA" Association="Self.FK_OPCION_LLAMADA">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCION_LLAMADA_VALIDACIONES" Association="Self.FK_OPCION_LLAMADA_VALIDACIONES">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="Validaciones" EntitySet="Validaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCIONLLAMADA_LLAMADA" Association="Self.FK_OPCIONLLAMADA_LLAMADA">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SUBOPCION" Association="Self.FK_SUBOPCION">
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VALIDACION" Association="Self.FK_VALIDACION">
+      <End Role="Validaciones" EntitySet="Validaciones" />
+      <End Role="OpcionesValidaciones" EntitySet="OpcionesValidaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_validaciones_subopcion" Association="Self.FK_validaciones_subopcion">
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+      <End Role="Validaciones" EntitySet="Validaciones" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

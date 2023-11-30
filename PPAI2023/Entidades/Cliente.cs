@@ -11,7 +11,7 @@ namespace PPAI2023.Entidades
         #region Atributos
         int dni;
         string nombreCompleto;
-        long nroCelular;
+        string nroCelular;
 
         #endregion
 
@@ -20,16 +20,16 @@ namespace PPAI2023.Entidades
 
         public int getDni (){ return this.dni; }
         public string getNombreCompleto() { return this.nombreCompleto; }
-        public long getNroCelular() {  return this.nroCelular; }
+        public string getNroCelular() {  return this.nroCelular; }
         public void setDni(int dni) {  this.dni = dni; }
         public void setNombreCompleto(string nombre) { this.nombreCompleto = nombre;}
-        public void setNroCelular(int nro) { this.nroCelular = nro;}
+        public void setNroCelular(string nro) { this.nroCelular = nro;}
 
         #endregion
 
 
         #region Constructor
-        public Cliente(int dni, string nombreCompleto, long nroCelular)
+        public Cliente(int dni, string nombreCompleto, string nroCelular)
         {
             this.dni = dni;
             this.nombreCompleto= nombreCompleto;

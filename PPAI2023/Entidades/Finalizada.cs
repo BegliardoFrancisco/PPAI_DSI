@@ -10,6 +10,11 @@ namespace PPAI2023.Entidades
         {
         }
 
+        public override EstadoLlamada crearEstado()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void finalizarLlamada(DateTime fechaHoraActual, Llamada llamada, List<CambioEstado> cambioEstado)
         {
             throw new NotImplementedException();

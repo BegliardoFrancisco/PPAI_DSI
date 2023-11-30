@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PPAI_DSIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Acciones">
+    <Key>
+      <PropertyRef Name="id_accion" />
+    </Key>
+    <Property Name="id_accion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Llamadas" Relationship="Self.FK_ACCION_LLAMADA" FromRole="Acciones" ToRole="Llamadas" />
+  </EntityType>
+  <EntityType Name="CambiosEstado">
+    <Key>
+      <PropertyRef Name="id_cambio_estado" />
+    </Key>
+    <Property Name="id_cambio_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_estado" Type="Int32" Nullable="false" />
+    <Property Name="fecha_inicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_fin" Type="DateTime" Precision="0" />
+    <Property Name="id_llamada" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estados" Relationship="Self.FK_ESTADO" FromRole="CambiosEstado" ToRole="Estados" />
+    <NavigationProperty Name="Llamadas" Relationship="Self.FK_LLAMADA" FromRole="CambiosEstado" ToRole="Llamadas" />
+  </EntityType>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="id_categoria" />
+    </Key>
+    <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_orden" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OpcionesLlamada" Relationship="Self.FK_CATEGORIA" FromRole="Categorias" ToRole="OpcionesLlamada" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dni" Type="Int32" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nro_celular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Llamadas" Relationship="Self.FK_ID_CLIENTE" FromRole="Clientes" ToRole="Llamadas" />
+  </EntityType>
+  <EntityType Name="Estados">
+    <Key>
+      <PropertyRef Name="id_estado" />
+    </Key>
+    <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CambiosEstado" Relationship="Self.FK_ESTADO" FromRole="Estados" ToRole="CambiosEstado" />
+  </EntityType>
+  <EntityType Name="Llamadas">
+    <Key>
+      <PropertyRef Name="id_llamada" />
+    </Key>
+    <Property Name="id_llamada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_hora_inicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="descripcion_operador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="detalle_accion_requerida" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="duracion" Type="Int32" />
+    <Property Name="id_accion" Type="Int32" />
+    <Property Name="id_cliente" Type="Int32" />
+    <Property Name="id_subopcion" Type="Int32" />
+    <Property Name="id_opcion_llamada" Type="Int32" />
+    <NavigationProperty Name="Acciones" Relationship="Self.FK_ACCION_LLAMADA" FromRole="Llamadas" ToRole="Acciones" />
+    <NavigationProperty Name="CambiosEstado" Relationship="Self.FK_LLAMADA" FromRole="Llamadas" ToRole="CambiosEstado" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_ID_CLIENTE" FromRole="Llamadas" ToRole="Clientes" />
+    <NavigationProperty Name="OpcionesLlamada" Relationship="Self.FK_OPCIONLLAMADA_LLAMADA" FromRole="Llamadas" ToRole="OpcionesLlamada" />
+    <NavigationProperty Name="SubOpcionesLlamada" Relationship="Self.FK_SUBOPCION" FromRole="Llamadas" ToRole="SubOpcionesLlamada" />
+  </EntityType>
+  <EntityType Name="OpcionesLlamada">
+    <Key>
+      <PropertyRef Name="id_opcion_llamada" />
+    </Key>
+    <Property Name="id_opcion_llamada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nro_orden" Type="Int32" Nullable="false" />
+    <Property Name="id_categoria" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Categorias" Relationship="Self.FK_CATEGORIA" FromRole="OpcionesLlamada" ToRole="Categorias" />
+    <NavigationProperty Name="Llamadas" Relationship="Self.FK_OPCIONLLAMADA_LLAMADA" FromRole="OpcionesLlamada" ToRole="Llamadas" />
+    <NavigationProperty Name="SubOpcionesLlamada" Relationship="Self.FK_OPCION_LLAMADA" FromRole="OpcionesLlamada" ToRole="SubOpcionesLlamada" />
+    <NavigationProperty Name="Validaciones" Relationship="Self.FK_OPCION_LLAMADA_VALIDACIONES" FromRole="OpcionesLlamada" ToRole="Validaciones" />
+  </EntityType>
+  <EntityType Name="OpcionesValidaciones">
+    <Key>
+      <PropertyRef Name="id_opcion_validacion" />
+    </Key>
+    <Property Name="id_opcion_validacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_validacion" Type="Int32" Nullable="false" />
+    <Property Name="es_correcta" Type="Boolean" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Validaciones" Relationship="Self.FK_VALIDACION" FromRole="OpcionesValidaciones" ToRole="Validaciones" />
+  </EntityType>
+  <EntityType Name="SubOpcionesLlamada">
+    <Key>
+      <PropertyRef Name="id_subopcion" />
+    </Key>
+    <Property Name="id_subopcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nro_orden" Type="Int32" Nullable="false" />
+    <Property Name="id_opcion_llamada" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Llamadas" Relationship="Self.FK_SUBOPCION" FromRole="SubOpcionesLlamada" ToRole="Llamadas" />
+    <NavigationProperty Name="OpcionesLlamada" Relationship="Self.FK_OPCION_LLAMADA" FromRole="SubOpcionesLlamada" ToRole="OpcionesLlamada" />
+    <NavigationProperty Name="Validaciones" Relationship="Self.FK_validaciones_subopcion" FromRole="SubOpcionesLlamada" ToRole="Validaciones" />
+  </EntityType>
+  <EntityType Name="Validaciones">
+    <Key>
+      <PropertyRef Name="id_validacion" />
+    </Key>
+    <Property Name="id_validacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_orden" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mensaje_validacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_opcion_llamada" Type="Int32" Nullable="false" />
+    <Property Name="id_subopcion" Type="Int32" />
+    <NavigationProperty Name="OpcionesLlamada" Relationship="Self.FK_OPCION_LLAMADA_VALIDACIONES" FromRole="Validaciones" ToRole="OpcionesLlamada" />
+    <NavigationProperty Name="OpcionesValidaciones" Relationship="Self.FK_VALIDACION" FromRole="Validaciones" ToRole="OpcionesValidaciones" />
+    <NavigationProperty Name="SubOpcionesLlamada" Relationship="Self.FK_validaciones_subopcion" FromRole="Validaciones" ToRole="SubOpcionesLlamada" />
+  </EntityType>
+  <Association Name="FK_ACCION_LLAMADA">
+    <End Role="Acciones" Type="Self.Acciones" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acciones">
+        <PropertyRef Name="id_accion" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_accion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTADO">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="CambiosEstado" Type="Self.CambiosEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="id_estado" />
+      </Principal>
+      <Dependent Role="CambiosEstado">
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LLAMADA">
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="1" />
+    <End Role="CambiosEstado" Type="Self.CambiosEstado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Llamadas">
+        <PropertyRef Name="id_llamada" />
+      </Principal>
+      <Dependent Role="CambiosEstado">
+        <PropertyRef Name="id_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CATEGORIA">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="id_categoria" />
+      </Principal>
+      <Dependent Role="OpcionesLlamada">
+        <PropertyRef Name="id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ID_CLIENTE">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCIONLLAMADA_LLAMADA">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SUBOPCION">
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Llamadas" Type="Self.Llamadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_subopcion" />
+      </Principal>
+      <Dependent Role="Llamadas">
+        <PropertyRef Name="id_subopcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCION_LLAMADA">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="1" />
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPCION_LLAMADA_VALIDACIONES">
+    <End Role="OpcionesLlamada" Type="Self.OpcionesLlamada" Multiplicity="1" />
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OpcionesLlamada">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Principal>
+      <Dependent Role="Validaciones">
+        <PropertyRef Name="id_opcion_llamada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VALIDACION">
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="1" />
+    <End Role="OpcionesValidaciones" Type="Self.OpcionesValidaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Validaciones">
+        <PropertyRef Name="id_validacion" />
+      </Principal>
+      <Dependent Role="OpcionesValidaciones">
+        <PropertyRef Name="id_validacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_validaciones_subopcion">
+    <End Role="SubOpcionesLlamada" Type="Self.SubOpcionesLlamada" Multiplicity="0..1" />
+    <End Role="Validaciones" Type="Self.Validaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubOpcionesLlamada">
+        <PropertyRef Name="id_subopcion" />
+      </Principal>
+      <Dependent Role="Validaciones">
+        <PropertyRef Name="id_subopcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PPAI_DSIEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acciones" EntityType="Self.Acciones" />
+    <EntitySet Name="CambiosEstado" EntityType="Self.CambiosEstado" />
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Estados" EntityType="Self.Estados" />
+    <EntitySet Name="Llamadas" EntityType="Self.Llamadas" />
+    <EntitySet Name="OpcionesLlamada" EntityType="Self.OpcionesLlamada" />
+    <EntitySet Name="OpcionesValidaciones" EntityType="Self.OpcionesValidaciones" />
+    <EntitySet Name="SubOpcionesLlamada" EntityType="Self.SubOpcionesLlamada" />
+    <EntitySet Name="Validaciones" EntityType="Self.Validaciones" />
+    <AssociationSet Name="FK_ACCION_LLAMADA" Association="Self.FK_ACCION_LLAMADA">
+      <End Role="Acciones" EntitySet="Acciones" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTADO" Association="Self.FK_ESTADO">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="CambiosEstado" EntitySet="CambiosEstado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LLAMADA" Association="Self.FK_LLAMADA">
+      <End Role="Llamadas" EntitySet="Llamadas" />
+      <End Role="CambiosEstado" EntitySet="CambiosEstado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CATEGORIA" Association="Self.FK_CATEGORIA">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ID_CLIENTE" Association="Self.FK_ID_CLIENTE">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCIONLLAMADA_LLAMADA" Association="Self.FK_OPCIONLLAMADA_LLAMADA">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SUBOPCION" Association="Self.FK_SUBOPCION">
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+      <End Role="Llamadas" EntitySet="Llamadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCION_LLAMADA" Association="Self.FK_OPCION_LLAMADA">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPCION_LLAMADA_VALIDACIONES" Association="Self.FK_OPCION_LLAMADA_VALIDACIONES">
+      <End Role="OpcionesLlamada" EntitySet="OpcionesLlamada" />
+      <End Role="Validaciones" EntitySet="Validaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VALIDACION" Association="Self.FK_VALIDACION">
+      <End Role="Validaciones" EntitySet="Validaciones" />
+      <End Role="OpcionesValidaciones" EntitySet="OpcionesValidaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_validaciones_subopcion" Association="Self.FK_validaciones_subopcion">
+      <End Role="SubOpcionesLlamada" EntitySet="SubOpcionesLlamada" />
+      <End Role="Validaciones" EntitySet="Validaciones" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

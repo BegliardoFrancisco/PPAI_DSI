@@ -26,10 +26,15 @@ namespace PPAI2023.Entidades
             CambioEstado cambioEstadoActual = obtenerCambioEstadoActual(cambioEstado);
             cambioEstadoActual.setFechaHoraFin(fechaHoraActual);
 
+            // UPDATE BDD DEL CAMBIO ESTADO
+            CambiosEstado.Update(cambioEstadoActual);
 
             EstadoLlamada estadoFinal = this.crearEstado();
 
             CambioEstado nuevoCambioEstado = this.crearCambioEstado(estadoFinal, fechaHoraActual);
+
+            // Insertamos en la BDD el cambio estado
+            CambiosEstado.Insert(nuevoCambioEstado,llamada.id);
 
             llamada.agregarCambioEstado(nuevoCambioEstado);
             llamada.setEstado(estadoFinal);
@@ -37,14 +42,12 @@ namespace PPAI2023.Entidades
 
         private CambioEstado crearCambioEstado(EstadoLlamada estadoFinal, DateTime fechaHoraActual)
         {
-            return new CambioEstado(fechaHoraActual,estadoFinal);
+            CambioEstado cb = new CambioEstado(fechaHoraActual, fechaHoraActual, estadoFinal);
+
+            return cb;
         }
 
-        private EstadoLlamada crearEstado()
-        {
-           return new Finalizada("Finalizada");
-
-        }
+ 
 
         private CambioEstado obtenerCambioEstadoActual(List<CambioEstado> cambiosEstadoLlamada)
         {
@@ -53,6 +56,11 @@ namespace PPAI2023.Entidades
             { if (cambio.esUltimo()) return cambio; }
 
             return null;
+        }
+
+        public override EstadoLlamada crearEstado()
+        {
+            return new Finalizada("Finalizada");
         }
     }
 }

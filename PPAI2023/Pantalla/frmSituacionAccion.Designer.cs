@@ -40,7 +40,7 @@
             // 
             this.imagenIncorrecta.Image = global::PPAI2023.Properties.Resources.incorrect;
             this.imagenIncorrecta.ImageRotate = 0F;
-            this.imagenIncorrecta.Location = new System.Drawing.Point(177, 45);
+            this.imagenIncorrecta.Location = new System.Drawing.Point(165, 45);
             this.imagenIncorrecta.Name = "imagenIncorrecta";
             this.imagenIncorrecta.Size = new System.Drawing.Size(101, 67);
             this.imagenIncorrecta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -60,9 +60,12 @@
             // 
             // lblSituacion
             // 
+            this.lblSituacion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSituacion.BackColor = System.Drawing.Color.Transparent;
             this.lblSituacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSituacion.Location = new System.Drawing.Point(138, 141);
+            this.lblSituacion.Location = new System.Drawing.Point(151, 141);
             this.lblSituacion.Name = "lblSituacion";
             this.lblSituacion.Size = new System.Drawing.Size(144, 22);
             this.lblSituacion.TabIndex = 2;

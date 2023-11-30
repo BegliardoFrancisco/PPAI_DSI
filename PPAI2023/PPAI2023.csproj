@@ -33,13 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.4, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.4\lib\net48\Guna.UI2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,11 +59,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acciones.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CambiosEstado.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Categorias.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Clientes.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entidades\Accion.cs" />
     <Compile Include="Entidades\CambioEstado.cs" />
     <Compile Include="Entidades\CategoriaLlamada.cs" />
     <Compile Include="Entidades\EnCurso.cs" />
-    <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\EstadoLlamada.cs" />
     <Compile Include="Entidades\Iniciada.cs" />
@@ -66,6 +84,18 @@
     <Compile Include="Entidades\OpcionValidacion.cs" />
     <Compile Include="Entidades\SubOpcionLlamada.cs" />
     <Compile Include="Entidades\Validacion.cs" />
+    <Compile Include="Estados.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Llamadas.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OpcionesLlamada.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OpcionesValidaciones.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pantalla\frmSituacionAccion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,11 +114,32 @@
     <Compile Include="Pantalla\ValidacionCorrecta.Designer.cs">
       <DependentUpon>ValidacionCorrecta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistencia.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Persistencia.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistencia.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistencia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Persistencia.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositorioDatos\BaseDatos.cs" />
     <Compile Include="RepositorioDatos\DBConnection.cs" />
     <Compile Include="Entidades\Finalizada.cs" />
+    <Compile Include="SubOpcionesLlamada.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Validaciones.cs">
+      <DependentUpon>Persistencia.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Pantalla\frmSituacionAccion.resx">
       <DependentUpon>frmSituacionAccion.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +160,13 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <EntityDeploy Include="Persistencia.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Persistencia.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Persistencia.edmx.diagram">
+      <DependentUpon>Persistencia.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,6 +194,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\incorrect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Persistencia.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Persistencia.Context.cs</LastGenOutput>
+      <DependentUpon>Persistencia.edmx</DependentUpon>
+    </Content>
+    <Content Include="Persistencia.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Persistencia.edmx</DependentUpon>
+      <LastGenOutput>Persistencia.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

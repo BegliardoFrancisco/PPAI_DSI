@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PPAI_DSIModelStoreContainer" CdmEntityContainer="PPAI_DSIEntities">
+    <EntitySetMapping Name="Acciones">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Acciones">
+        <MappingFragment StoreEntitySet="Acciones">
+          <ScalarProperty Name="id_accion" ColumnName="id_accion" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CambiosEstado">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.CambiosEstado">
+        <MappingFragment StoreEntitySet="CambiosEstado">
+          <ScalarProperty Name="id_cambio_estado" ColumnName="id_cambio_estado" />
+          <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+          <ScalarProperty Name="id_llamada" ColumnName="id_llamada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Categorias">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="nro_celular" ColumnName="nro_celular" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estados">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Estados">
+        <MappingFragment StoreEntitySet="Estados">
+          <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+          <ScalarProperty Name="nombre_estado" ColumnName="nombre_estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Llamadas">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Llamadas">
+        <MappingFragment StoreEntitySet="Llamadas">
+          <ScalarProperty Name="id_llamada" ColumnName="id_llamada" />
+          <ScalarProperty Name="fecha_hora_inicio" ColumnName="fecha_hora_inicio" />
+          <ScalarProperty Name="descripcion_operador" ColumnName="descripcion_operador" />
+          <ScalarProperty Name="detalle_accion_requerida" ColumnName="detalle_accion_requerida" />
+          <ScalarProperty Name="duracion" ColumnName="duracion" />
+          <ScalarProperty Name="id_accion" ColumnName="id_accion" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="id_subopcion" ColumnName="id_subopcion" />
+          <ScalarProperty Name="id_opcion_llamada" ColumnName="id_opcion_llamada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpcionesLlamada">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.OpcionesLlamada">
+        <MappingFragment StoreEntitySet="OpcionesLlamada">
+          <ScalarProperty Name="id_opcion_llamada" ColumnName="id_opcion_llamada" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OpcionesValidaciones">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.OpcionesValidaciones">
+        <MappingFragment StoreEntitySet="OpcionesValidaciones">
+          <ScalarProperty Name="id_opcion_validacion" ColumnName="id_opcion_validacion" />
+          <ScalarProperty Name="id_validacion" ColumnName="id_validacion" />
+          <ScalarProperty Name="es_correcta" ColumnName="es_correcta" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubOpcionesLlamada">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.SubOpcionesLlamada">
+        <MappingFragment StoreEntitySet="SubOpcionesLlamada">
+          <ScalarProperty Name="id_subopcion" ColumnName="id_subopcion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
+          <ScalarProperty Name="id_opcion_llamada" ColumnName="id_opcion_llamada" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Validaciones">
+      <EntityTypeMapping TypeName="PPAI_DSIModel.Validaciones">
+        <MappingFragment StoreEntitySet="Validaciones">
+          <ScalarProperty Name="id_validacion" ColumnName="id_validacion" />
+          <ScalarProperty Name="nro_orden" ColumnName="nro_orden" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="mensaje_validacion" ColumnName="mensaje_validacion" />
+          <ScalarProperty Name="id_opcion_llamada" ColumnName="id_opcion_llamada" />
+          <ScalarProperty Name="id_subopcion" ColumnName="id_subopcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

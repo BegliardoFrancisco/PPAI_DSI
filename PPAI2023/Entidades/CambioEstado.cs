@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PPAI2023.Entidades
 {
     public class CambioEstado
     {
         #region Atributos
-
+        public int id { get; set; }
         DateTime fechaHoraInicio;
         DateTime? fechaHoraFin;
         EstadoLlamada estado;
@@ -29,12 +30,27 @@ namespace PPAI2023.Entidades
 
 
         #region Constructor
+        public CambioEstado(int id ,DateTime fechaHoraInicio, EstadoLlamada estado)
+        {
+            this.id = id;
+            this.fechaHoraInicio = fechaHoraInicio;
+            this.fechaHoraFin = null;
+            this.estado = estado;
+        }
         public CambioEstado(DateTime fechaHoraInicio, EstadoLlamada estado)
         {
             this.fechaHoraInicio = fechaHoraInicio;
             this.fechaHoraFin = null;
             this.estado = estado;
         }
+
+        public CambioEstado(DateTime fechaHoraInicio, DateTime fechaHoraFin, EstadoLlamada estado)
+        {
+            this.fechaHoraInicio = fechaHoraInicio;
+            this.fechaHoraFin = fechaHoraFin;
+            this.estado = estado;
+        }
+
 
         #endregion
 

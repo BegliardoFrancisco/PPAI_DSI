@@ -9,6 +9,7 @@ namespace PPAI2023.Entidades
     public class Llamada
     {
         #region Atributos
+        public int id { get; set; }
         DateTime fechaHoraInicioLlamada;
         string descripcionOperador;
         string detalleAccionRequerida;
@@ -44,8 +45,9 @@ namespace PPAI2023.Entidades
 
 
         #region Constructor
-        public Llamada(Cliente cliente, CambioEstado cambioEstado)
+        public Llamada(Cliente cliente, CambioEstado cambioEstado, int id)
         {
+            this.id = id;
             this.cliente = cliente;
             this.cambioEstado = new List<CambioEstado> { cambioEstado };
         }
@@ -59,9 +61,22 @@ namespace PPAI2023.Entidades
         {
             EstadoLlamada estact = estado;
 
-            obtenerEstadoActual(cambioEstado).setFechaHoraFin(fechaHoraActual);
+            CambioEstado actualcambio = obtenerEstadoActual(cambioEstado);
+            actualcambio.setFechaHoraFin(fechaHoraActual);
+
+            // Actualizando el cambio estado en la bdd para agregarle la fecha fin
+            CambiosEstado.Update(actualcambio);
+
+
             CambioEstado nuevoCambioEstado = new CambioEstado(fechaHoraActual, estado);
+
             this.setEstado(estado);
+
+            // Inserta en nuevo cambioEstado en la BDD
+            CambiosEstado.Insert(nuevoCambioEstado, this.id);
+
+            nuevoCambioEstado.id =  CambiosEstado.getIdCambioactual();
+
             cambioEstado.Add(nuevoCambioEstado);
         }
 

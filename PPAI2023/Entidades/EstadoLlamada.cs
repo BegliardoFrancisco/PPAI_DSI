@@ -40,6 +40,8 @@ namespace PPAI2023.Entidades
         {
             return this.nombre == "EsFinalizada";
         }
+
+        public abstract EstadoLlamada crearEstado();
         #endregion
     }
 }
